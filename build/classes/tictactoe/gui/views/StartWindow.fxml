@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="342.0" prefWidth="329.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tictactoe.gui.controller.StartWindowController">
+   <children>
+      <Label layoutX="101.0" layoutY="36.0" text="TicTacToe">
+         <font>
+            <Font size="29.0" />
+         </font>
+      </Label>
+      <Button layoutX="129.0" layoutY="114.0" mnemonicParsing="false" onAction="#pvpStart" text="PvP" textFill="#df0000">
+         <padding>
+            <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+         </padding>
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+      <Button layoutX="129.0" layoutY="228.0" mnemonicParsing="false" onAction="#pveStart" text="PvE" textFill="#00bf2d">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+         <padding>
+            <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+         </padding>
+      </Button>
+   </children>
+</AnchorPane>
