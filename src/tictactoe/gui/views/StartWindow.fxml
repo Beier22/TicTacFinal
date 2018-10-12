@@ -13,7 +13,7 @@
             <Font size="29.0" />
          </font>
       </Label>
-      <Button layoutX="129.0" layoutY="114.0" mnemonicParsing="false" onAction="#pvpStart" text="PvP" textFill="#df0000">
+      <Button fx:id="pvpButton" layoutX="129.0" layoutY="114.0" mnemonicParsing="false" onAction="#pvpStart" text="PvP" textFill="#df0000">
          <padding>
             <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
          </padding>
@@ -21,7 +21,7 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Button layoutX="129.0" layoutY="228.0" mnemonicParsing="false" onAction="#pveStart" text="PvE" textFill="#00bf2d">
+      <Button fx:id="pveButton" layoutX="129.0" layoutY="228.0" mnemonicParsing="false" onAction="#pveStart" text="PvE" textFill="#00bf2d">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>

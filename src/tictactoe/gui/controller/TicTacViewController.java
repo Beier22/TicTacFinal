@@ -6,6 +6,7 @@
 package tictactoe.gui.controller;
 
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,11 +14,14 @@ import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import tictactoe.bll.GameBoard;
 import tictactoe.bll.IGameModel;
 
@@ -41,7 +45,10 @@ public class TicTacViewController implements Initializable
     private IGameModel game;
     private boolean loop = false;
     public boolean pvp = true;
+    
     private Button rbtn;
+    
+    
     private boolean endGame = false;
     @FXML
     private Button btn1;
@@ -61,10 +68,14 @@ public class TicTacViewController implements Initializable
     private Button btn8;
     @FXML
     private Button btn9;
+    
+    private boolean ai = false;
+    
+    private List<Button> randomValue = new ArrayList<>();
 
-    public Button randomValue() {
+    public Button randomButton() {
 
-    List<Button> randomValue = new ArrayList<>();
+    
     randomValue.add(btn1);
     randomValue.add(btn2);
     randomValue.add(btn3);
@@ -125,7 +136,6 @@ public class TicTacViewController implements Initializable
                 int c = (col == null) ? 0 : col;
                 int player = game.getNextPlayer()=="O" ? 0 : 1;
                 if (game.play(c, r) && endGame==false)
-                setPlayer();
                 {
                     if (game.isGameOver()==0)
                     {
@@ -134,26 +144,32 @@ public class TicTacViewController implements Initializable
                         btn.setText(winner);
                         endGame = true;
                     }
-                    else if (game.isGameOver()==1 && "".equals(btn.getText()))
+                    else if (game.isGameOver()==1 && ai == false)
                     {
 
                         String xOrO = player == 0 ? "X" : "O";
                         btn.setText(xOrO);
-                        
-                        
+                        game.getNextPlayer();
+                        setPlayer();
+                        ai = true;
                         
                         while(!loop){
-                            
-                            rbtn = randomValue();
-                        
+                            rbtn = randomButton();
                             if("".equals(rbtn.getText())){
-                                String opposite = "X".equals(xOrO) ? "O" : "X";
-                               rbtn.setText(opposite);
-                               loop = true;
+                                
+                                rbtn.fire();
+                                loop = true;
                             }
                         }
                     }
-                    else if (game.isGameOver()==-1)
+                    if (game.isGameOver()==1 && ai == true){
+                        String xOrO = player == 0 ? "X" : "O";
+                        btn.setText(xOrO);
+                        game.getNextPlayer();
+                        setPlayer();
+                        ai = false;
+                    }
+                    if (game.isGameOver()==-1)
                     {
                         displayWinner("");
                         btn.setText(game.getNextPlayer());
@@ -169,12 +185,22 @@ public class TicTacViewController implements Initializable
     }
 
     @FXML
-    private void handleNewGame(ActionEvent event)
+    private void handleNewGame(ActionEvent event) throws IOException
     {
         game.newGame();
+        ai = false;
         setPlayer();
         clearBoard();
         endGame=false;
+        
+        Stage st = (Stage) btnNewGame.getScene().getWindow();
+        st.close();
+        
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/tictactoe/gui/views/StartWindow.fxml"));
+        stage.setScene(new Scene(loader.load()));
+        
+        stage.show();
     }
 
     @Override

@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 /**
@@ -21,6 +22,11 @@ import javafx.stage.Stage;
  * @author mads_
  */
 public class StartWindowController implements Initializable {
+
+    @FXML
+    private Button pvpButton;
+    @FXML
+    private Button pveButton;
 
     /**
      * Initializes the controller class.
@@ -32,6 +38,9 @@ public class StartWindowController implements Initializable {
 
     @FXML
     private void pvpStart(ActionEvent event) throws IOException {
+        Stage st = (Stage) pveButton.getScene().getWindow();
+        st.close();
+        
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/tictactoe/gui/views/TicTacView.fxml"));
         stage.setScene(new Scene(loader.load()));
@@ -41,6 +50,9 @@ public class StartWindowController implements Initializable {
 
     @FXML
     private void pveStart(ActionEvent event) throws IOException {
+        Stage st = (Stage) pvpButton.getScene().getWindow();
+        st.close();
+        
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/tictactoe/gui/views/TicTacView.fxml"));
         stage.setScene(new Scene(loader.load()));
